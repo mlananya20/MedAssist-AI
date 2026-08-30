@@ -1,0 +1,21 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Node
+node_modules/
+dist/
+build/
+
+# ML artifacts
+*.pkl
+*.joblib
+
+# Reports
+backend/reports/*.pdf
+
+# OS
+.DS_Store
