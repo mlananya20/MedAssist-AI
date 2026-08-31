@@ -6,7 +6,7 @@ from flask import Flask
 from flask_cors import CORS
 
 # Blueprints will be registered here as you build them (Module by Module)
-# from api.predict_routes import predict_bp
+from api.predict_routes import predict_bp
 # from api.auth_routes import auth_bp
 
 def create_app():
@@ -17,7 +17,7 @@ def create_app():
     def health_check():
         return {"status": "ok", "service": "MedAssist AI backend"}
 
-    # app.register_blueprint(predict_bp, url_prefix="/api/predict")
+    app.register_blueprint(predict_bp, url_prefix="/api/predict")
     # app.register_blueprint(auth_bp, url_prefix="/api/auth")
 
     return app
