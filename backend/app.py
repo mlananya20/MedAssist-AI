@@ -5,9 +5,11 @@ Run with: python app.py
 from flask import Flask
 from flask_cors import CORS
 
-# Blueprints will be registered here as you build them (Module by Module)
 from api.predict_routes import predict_bp
-# from api.auth_routes import auth_bp
+from api.profile_routes import profile_bp
+from api.auth_routes import auth_bp
+from api.history_routes import history_bp
+
 
 def create_app():
     app = Flask(__name__)
@@ -18,7 +20,9 @@ def create_app():
         return {"status": "ok", "service": "MedAssist AI backend"}
 
     app.register_blueprint(predict_bp, url_prefix="/api/predict")
-    # app.register_blueprint(auth_bp, url_prefix="/api/auth")
+    app.register_blueprint(profile_bp, url_prefix="/api/profile")
+    app.register_blueprint(auth_bp, url_prefix="/api/auth")
+    app.register_blueprint(history_bp, url_prefix="/api/history")
 
     return app
 
