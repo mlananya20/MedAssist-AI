@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { downloadReport } from '../api'
+
 const SEVERE_DISEASES = ['AIDS', 'Heart attack', 'Paralysis (brain hemorrhage)', 'Tuberculosis']
 
 export function UserTurn({ symptoms }) {
@@ -11,7 +14,22 @@ export function UserTurn({ symptoms }) {
   )
 }
 
-export function AssistantTurn({ result, loading }) {
+export function AssistantTurn({ result, loading, symptoms }) {
+  const [downloading, setDownloading] = useState(false)
+  const [downloadError, setDownloadError] = useState('')
+
+  async function handleDownload() {
+    setDownloading(true)
+    setDownloadError('')
+    try {
+      await downloadReport({ symptoms, ...result })
+    } catch (err) {
+      setDownloadError(err.message)
+    } finally {
+      setDownloading(false)
+    }
+  }
+
   if (loading) {
     return (
       <div className="turn-assistant">
@@ -33,7 +51,7 @@ export function AssistantTurn({ result, loading }) {
     <div className="turn-assistant">
       <div className="assistant-card">
         {isSevere && (
-          <div className="alert-banner">High risk — please consult a doctor immediately.</div>
+          <div className="alert-banner">High risk — please consult a doctor immediately. Check the Hospitals tab for care near you.</div>
         )}
 
         {top && (
@@ -88,6 +106,11 @@ export function AssistantTurn({ result, loading }) {
             </div>
           </details>
         )}
+
+        <button className="download-report-btn" onClick={handleDownload} disabled={downloading}>
+          {downloading ? 'Generating PDF…' : 'Download report (PDF)'}
+        </button>
+        {downloadError && <p className="unmatched-note">{downloadError}</p>}
       </div>
     </div>
   )

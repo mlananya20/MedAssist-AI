@@ -65,3 +65,44 @@ export async function fetchHistory({ disease, search } = {}) {
   })
   return parseOrThrow(res, 'Could not load history')
 }
+
+export async function fetchAnalytics() {
+  const res = await fetch(`${BASE_URL}/analytics/`, {
+    headers: authHeaders(),
+  })
+  return parseOrThrow(res, 'Could not load analytics')
+}
+
+export async function geocodeAddress(address) {
+  const res = await fetch(`${BASE_URL}/hospitals/geocode?address=${encodeURIComponent(address)}`, {
+    headers: authHeaders(),
+  })
+  return parseOrThrow(res, 'Could not find that address')
+}
+
+export async function fetchNearbyHospitals({ lat, lon, countryCode }) {
+  const params = new URLSearchParams({ lat, lon })
+  if (countryCode) params.set('country_code', countryCode)
+  const res = await fetch(`${BASE_URL}/hospitals/nearby?${params.toString()}`, {
+    headers: authHeaders(),
+  })
+  return parseOrThrow(res, 'Could not load nearby hospitals')
+}
+export async function downloadReport({ symptoms, predictions, explanation, personalized_recommendations }) {
+  const res = await fetch(`${BASE_URL}/report/generate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify({ symptoms, predictions, explanation, personalized_recommendations }),
+  })
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    throw new Error(data.error || 'Could not generate report')
+  }
+  const blob = await res.blob()
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'MedAssist_Report.pdf'
+  a.click()
+  URL.revokeObjectURL(url)
+}

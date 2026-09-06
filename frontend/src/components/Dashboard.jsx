@@ -3,6 +3,8 @@ import Sidebar from './Sidebar'
 import Composer from './Composer'
 import { UserTurn, AssistantTurn } from './ChatMessage'
 import HistoryPanel from './HistoryPanel'
+import AnalyticsPanel from './AnalyticsPanel'
+import HospitalPanel from './HospitalPanel'
 import { predictDisease } from '../api'
 
 export default function Dashboard({ session, onProfileUpdated, onLogout }) {
@@ -35,7 +37,7 @@ export default function Dashboard({ session, onProfileUpdated, onLogout }) {
     setError('')
     try {
       const data = await predictDisease(sentSymptoms)
-      setTurns((t) => [...t, { type: 'assistant', result: data }])
+      setTurns((t) => [...t, { type: 'assistant', result: data, symptoms: sentSymptoms }])
     } catch (err) {
       setError(err.message || 'Could not reach the backend.')
     } finally {
@@ -58,10 +60,16 @@ export default function Dashboard({ session, onProfileUpdated, onLogout }) {
         <div className="tab-bar">
           <button className={tab === 'chat' ? 'tab active' : 'tab'} onClick={() => setTab('chat')}>Chat</button>
           <button className={tab === 'history' ? 'tab active' : 'tab'} onClick={() => setTab('history')}>History</button>
+          <button className={tab === 'analytics' ? 'tab active' : 'tab'} onClick={() => setTab('analytics')}>Analytics</button>
+          <button className={tab === 'hospitals' ? 'tab active' : 'tab'} onClick={() => setTab('hospitals')}>Hospitals</button>
         </div>
 
         {tab === 'history' ? (
           <HistoryPanel />
+        ) : tab === 'analytics' ? (
+          <AnalyticsPanel />
+        ) : tab === 'hospitals' ? (
+          <HospitalPanel />
         ) : (
           <>
             <div className="transcript" ref={transcriptRef}>
@@ -74,7 +82,7 @@ export default function Dashboard({ session, onProfileUpdated, onLogout }) {
               {turns.map((turn, i) =>
                 turn.type === 'user'
                   ? <UserTurn key={i} symptoms={turn.symptoms} />
-                  : <AssistantTurn key={i} result={turn.result} />
+                  : <AssistantTurn key={i} result={turn.result} symptoms={turn.symptoms} />
               )}
               {loading && <AssistantTurn loading />}
             </div>
