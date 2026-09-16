@@ -54,11 +54,11 @@ export default function AnalyticsPanel() {
           <p className="section-label">Weekly prediction trend</p>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={weekly_trend}>
-              <CartesianGrid stroke="#2E4A44" strokeDasharray="3 3" />
-              <XAxis dataKey="date" stroke="#93ADA6" fontSize={11} tickLine={false} axisLine={false} />
-              <YAxis allowDecimals={false} stroke="#93ADA6" fontSize={11} tickLine={false} axisLine={false} width={24} />
-              <Tooltip contentStyle={{ background: '#1C302C', border: '1px solid #2E4A44', fontSize: 12 }} />
-              <Line type="monotone" dataKey="count" stroke="#5FD9B8" strokeWidth={2} dot={{ r: 3 }} />
+              <CartesianGrid stroke="#DCEAE7" strokeDasharray="3 3" />
+              <XAxis dataKey="date" stroke="#5C7A74" fontSize={11} tickLine={false} axisLine={false} />
+              <YAxis allowDecimals={false} stroke="#5C7A74" fontSize={11} tickLine={false} axisLine={false} width={24} />
+              <Tooltip contentStyle={{ background: '#FFFFFF', border: '1px solid #DCEAE7', fontSize: 12 }} />
+              <Line type="monotone" dataKey="count" stroke="#0D9488" strokeWidth={2} dot={{ r: 3 }} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -67,10 +67,10 @@ export default function AnalyticsPanel() {
           <p className="section-label">Disease distribution</p>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={disease_distribution} layout="vertical" margin={{ left: 10 }}>
-              <XAxis type="number" allowDecimals={false} stroke="#93ADA6" fontSize={11} tickLine={false} axisLine={false} />
-              <YAxis type="category" dataKey="disease" width={110} stroke="#93ADA6" fontSize={10.5} tickLine={false} axisLine={false} />
-              <Tooltip contentStyle={{ background: '#1C302C', border: '1px solid #2E4A44', fontSize: 12 }} />
-              <Bar dataKey="count" fill="#5FD9B8" radius={[0, 3, 3, 0]} />
+              <XAxis type="number" allowDecimals={false} stroke="#5C7A74" fontSize={11} tickLine={false} axisLine={false} />
+              <YAxis type="category" dataKey="disease" width={110} stroke="#5C7A74" fontSize={10.5} tickLine={false} axisLine={false} />
+              <Tooltip contentStyle={{ background: '#FFFFFF', border: '1px solid #DCEAE7', fontSize: 12 }} />
+              <Bar dataKey="count" fill="#0D9488" radius={[0, 3, 3, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -80,10 +80,10 @@ export default function AnalyticsPanel() {
         <p className="section-label">Most common symptoms</p>
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={most_common_symptoms}>
-            <XAxis dataKey="symptom" stroke="#93ADA6" fontSize={10.5} tickLine={false} axisLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
-            <YAxis allowDecimals={false} stroke="#93ADA6" fontSize={11} tickLine={false} axisLine={false} width={24} />
-            <Tooltip contentStyle={{ background: '#1C302C', border: '1px solid #2E4A44', fontSize: 12 }} />
-            <Bar dataKey="count" fill="#5FD9B8" radius={[3, 3, 0, 0]} />
+            <XAxis dataKey="symptom" stroke="#5C7A74" fontSize={10.5} tickLine={false} axisLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
+            <YAxis allowDecimals={false} stroke="#5C7A74" fontSize={11} tickLine={false} axisLine={false} width={24} />
+            <Tooltip contentStyle={{ background: '#FFFFFF', border: '1px solid #DCEAE7', fontSize: 12 }} />
+            <Bar dataKey="count" fill="#0D9488" radius={[3, 3, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

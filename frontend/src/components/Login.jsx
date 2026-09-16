@@ -28,7 +28,7 @@ export default function Login({ onSuccess, onSwitchToRegister, initialEmail = ''
       <form className="auth-card" onSubmit={handleSubmit}>
         <div className="brand">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <path d="M1 14H8L11 5L16 23L19 14H27" stroke="#5FD9B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M1 14H8L11 5L16 23L19 14H27" stroke="#0D9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <h1>MedAssist AI</h1>
         </div>
